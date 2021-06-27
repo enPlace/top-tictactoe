@@ -23,23 +23,23 @@ cells.forEach(cell=>{
     record vs another player 
  */
 
-const player = (nombre)=>{
-    let Name = nombre
+const player = (playername)=>{
+    let name = {playername}
     let totalWins = 0
     let totalLoss = 0
     let totalDraw = 0
     let sessionWins = 0
     let sessionDraws = 0
-    const name = ()=>Name;
     const wins = ()=>totalWins;
     const losses = ()=> totalLoss;
     const draws =() =>totalDraw;
     const seshWins = () =>sessionWins;
     const seshDraws = () =>sessionDraws;
-    let battleHistories = []
+    let history = {"total wins":0, "total losses": 0, "total draws":0}
+    let battleHistories = [{1:2}]
 
     return {name, wins, losses, draws, 
-    seshWins, seshDraws}
+    seshWins, seshDraws, battleHistories, history}
 
 }
 
