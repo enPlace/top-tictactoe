@@ -91,6 +91,11 @@ button:hover{
     height: 33.3%;
     border: 2px solid #443A84;
     box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: yellow;
 }
 .cell:hover{
     background-color: 	#1d269b;
