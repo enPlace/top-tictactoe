@@ -2,6 +2,8 @@ const DOMgameboard = document.getElementById("gameboard")
 const cells = document.querySelectorAll(".cell")
 //gameboard function
 
+let players = []// for storing player info
+
 cells.forEach(cell=>{
     
     if(cell.id%2 ==1){
@@ -14,6 +16,9 @@ cells.forEach(cell=>{
     }
 })
 
+function savePlayerLibrary(){
+    localStorage.setItem("players", JSON.stringify(players))
+}
 //player object
 /* 
 1. takes a name
@@ -23,33 +28,29 @@ cells.forEach(cell=>{
     record vs another player 
  */
 
-const player = (playername)=>{
-    let name = {playername}
-    let totalWins = 0
-    let totalLoss = 0
-    let totalDraw = 0
-    let sessionWins = 0
-    let sessionDraws = 0
-    const wins = ()=>totalWins;
-    const losses = ()=> totalLoss;
-    const draws =() =>totalDraw;
-    const seshWins = () =>sessionWins;
-    const seshDraws = () =>sessionDraws;
-    let history = {"total wins":0, "total losses": 0, "total draws":0}
-    let battleHistories = [{1:2}]
-
-    return {name, wins, losses, draws, 
-    seshWins, seshDraws, battleHistories, history}
-
+const player = (name)=>{
+    let test = players.some(player=>{
+        if(player.name==name){return player.name==name}
+    })
+    let history
+    let battleHistories
+    if(test==false){
+        history = {"total wins":0, "total losses": 0, "total draws":0}
+        battleHistories = []
+        players.push({name, battleHistories, history})
+        savePlayerLibrary()
+        return {name, battleHistories, history}
+    }else{
+        return("Name taken! Try something else")
+    }
 }
 
 const battleHistory=(player1, player2)=>{
-    
     if(!player1[player2]){
         console.log("nope")
         const blankSlate = {"wins":0, "draws":0, "losses":0} 
-        player1[player2] = blankSlate
-        player2[player1] = blankSlate
+        player1.battleHistories[player2] = blankSlate
+        player2.battleHistories[player1] = blankSlate
     }
     else{
         console.log("yep")
@@ -63,6 +64,8 @@ const battleHistory=(player1, player2)=>{
 
 const nick = player("Nick")
 const ceci = player("Ceci")
+const nickyboy = player("nicky")
+
 
 
 
