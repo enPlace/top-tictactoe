@@ -13,13 +13,12 @@ const miamiBlue = "#0bd3d3"
 const miamiPink = "#fa46dc"
 const miamiYellow ="rgb(253, 253, 127)"
 
-let players = {}// for storing player info
+let players = {}// for storing player info 
+
+//use local storage to save and fetch player info
 const savePlayerLibrary=()=>{localStorage.setItem("players", JSON.stringify(players))}
 const getPlayerLibrary=()=>{return players = JSON.parse(localStorage.getItem("players"))}
-
-
-
-if(localStorage.getItem("players")){
+if(localStorage.getItem("players")){ 
     getPlayerLibrary()
 }
 
@@ -51,10 +50,13 @@ const getBattleHistory=(player1, player2)=>{
 }
 
 const match = (player1, player2)=>{
+    //factory function-- controls the match, keeps track of scores, checks for winners
     getBattleHistory(player1, player2)
     userOneName.textContent = player1.name
     userTwoName.textContent = player2.name
 
+    /************************************************************/
+    //board content
     let gameArray = [
         ["","",""],
         ["","",""],
@@ -93,8 +95,9 @@ const match = (player1, player2)=>{
         })
         if(checkrows||checkcols||checkdiags) return true
         }
-
-
+        
+    /************************************************************/
+    //turn controls
     let firstturn = true
     let turn =false
     const changeTurn =()=>{
@@ -115,12 +118,14 @@ const match = (player1, player2)=>{
     function whoseTurn(){
         return turn
     }
-
+    /************************************************************/
+    //scorekeeping
     let p1Score = 0
     let p2Score = 0
     const updateScores = () =>{
         userOneScore.textContent = p1Score
         userTwoScore.textContent = p2Score
+        savePlayerLibrary()
     }
     const winner = (winner, loser)=>{
         if( winner==player1){
@@ -160,6 +165,7 @@ const match = (player1, player2)=>{
 
 cells.forEach(cell=>{
     cell.addEventListener("click", (e)=>{
+        //conrols the DOM gameboard and interacts with the gameArray in the match object
         if(e.target.dataset.status == "active"){
         }else{
             if (currentGame.whoseTurn()){
@@ -167,7 +173,7 @@ cells.forEach(cell=>{
                 cell.style.color = miamiBlue
                 currentGame.updateBoard(e.target.dataset.row, e.target.dataset.column, "X")
                 e.target.dataset.status = "active"
-                if(currentGame.checkBoard()==true){
+                if(currentGame.checkBoard()){
                     console.log("player1 wins!")
                     freezeCells()
                     currentGame.winner(p1,p2)
@@ -178,7 +184,7 @@ cells.forEach(cell=>{
                 cell.style.color = miamiPink
                 currentGame.updateBoard(e.target.dataset.row, e.target.dataset.column, "O")
                 e.target.dataset.status = "active"
-                if(currentGame.checkBoard()==true){
+                if(currentGame.checkBoard()){
                     console.log("player2 wins!")
                     freezeCells()
                     currentGame.winner(p2,p1)
@@ -203,6 +209,7 @@ function freezeCells(){
 }
 
 playAgain.addEventListener("click", ()=>{
+    //resets DOM gameboard and match object gameArray
     clearCells()
     currentGame.clearBoard()
 })
@@ -213,3 +220,5 @@ let p2 = players["Ceci"]
 
 currentGame = match(p1, p2)
 
+
+//next, make a draw if board is full
