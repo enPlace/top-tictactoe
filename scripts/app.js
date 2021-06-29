@@ -15,24 +15,13 @@ let players = {}// for storing player info
 const savePlayerLibrary=()=>{localStorage.setItem("players", JSON.stringify(players))}
 const getPlayerLibrary=()=>{return players = JSON.parse(localStorage.getItem("players"))}
 
-let newgame
-let p1
-let p2 
+
 
 if(localStorage.getItem("players")){
     getPlayerLibrary()
 }
 
-cells.forEach(cell=>{
-    if(cell.id%2 ==1){
-        cell.textContent="O"
-        cell.style.color = "#fa46dc"
-    }
-    else{
-        cell.textContent="X"
-        cell.style.color = "#0bd3d3"
-    }
-})
+
 
 const player = (name)=>{
     //player factory function
@@ -61,23 +50,36 @@ const getBattleHistory=(player1, player2)=>{
 }
 
 const game = (player1, player2)=>{
-    let gameArray = [" "," "," "," "," "," "," "," "," "]
+    let gameArray = [
+        ["","",""],
+        ["","",""],
+        ["","",""]]
+    const updateBoard = (row, col, text)=>{
+        gameArray[row][col] = text
+        gameArray.forEach(row=>console.log(row))
+        return gameArray
+    }
     getBattleHistory(player1, player2)
     userOneName.textContent = player1.name
     userTwoName.textContent = player2.name
-    let whoseTurn =player1
+    
+    let turn =true
     const changeTurn =()=>{
-        if(whoseTurn==player1){
-            whoseTurn=player2
+        if(turn){
+            console.log("yep")
             userOneName.style.color = miamiBlue
             userTwoName.style.color = miamiYellow
+            turn =false
         }
         else{
-            whoseTurn=player1
             userOneName.style.color = miamiYellow
             userTwoName.style.color = miamiPink
+            turn =true
         }
-        return whoseTurn
+        return turn
+    }
+    function whoseTurn(){
+        return turn
     }
 
     let p1Score = 0
@@ -108,15 +110,45 @@ const game = (player1, player2)=>{
         updateScores()
     }
     const end=()=>{return p1Score>p2Score?`${player1.name} wins!`:`${player2.name} wins!`}
-    return {gameArray, changeTurn, winner, draw, end}
+
+    return {gameArray, updateBoard, changeTurn, winner, 
+        draw, end, whoseTurn}
 }
 
+cells.forEach(cell=>{
+    cell.addEventListener("click", (e)=>{
+        if(e.target.dataset.status == "active"){
+        }else{
+            if (currentGame.whoseTurn()){
+                cell.textContent = "X"
+                cell.style.color = miamiBlue
+                currentGame.updateBoard(e.target.dataset.row, e.target.dataset.column, "X")
+                e.target.dataset.status = "active"
+                currentGame.changeTurn()
+
+
+            }else{
+                cell.textContent = "O"
+                cell.style.color = miamiPink
+                currentGame.updateBoard(e.target.dataset.row, e.target.dataset.column, "O")
+                e.target.dataset.status = "active"
+                currentGame.changeTurn()
+            }
+        }
+    })
+})
+
+let currentGame
+let p1 = players["Nick"]
+let p2 = players["Ceci"]
+
+currentGame = game(p1, p2)
 
 /* const nick = player("Nick")
 const ceci = player("Ceci")
 const camote = player("Camote")
 
-const newgame = game(nick,ceci) */
+ */
 
 
 
