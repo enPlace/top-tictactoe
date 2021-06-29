@@ -1,11 +1,20 @@
 const DOMgameboard = document.getElementById("gameboard")
 const cells = document.querySelectorAll(".cell")
+const userOneInfo = document.getElementById("user-one-info")
+const userOneName = document.getElementById("user-one-name")
+const userOneScore = document.getElementById("user-one-score")
+const userTwoInfo = document.getElementById("user-two-info")
+const userTwoName = document.getElementById("user-two-name")
+const userTwoScore = document.getElementById("user-two-score")
+
+const miamiBlue = "#0bd3d3"
+const miamiPink = "#fa46dc"
+const miamiYellow ="rgb(253, 253, 127)"
 //gameboard function
 
 let players = []// for storing player info
 
 cells.forEach(cell=>{
-    
     if(cell.id%2 ==1){
         cell.textContent="O"
         cell.style.color = "#fa46dc"
@@ -19,16 +28,9 @@ cells.forEach(cell=>{
 function savePlayerLibrary(){
     localStorage.setItem("players", JSON.stringify(players))
 }
-//player object
-/* 
-1. takes a name
-2. has the following attributes: 
-    total wins, losses, draws
-    name
-    record vs another player 
- */
 
 const player = (name)=>{
+    //player factory function
     let test = players.some(player=>{
         if(player.name==name){return player.name==name}
     })
@@ -36,7 +38,7 @@ const player = (name)=>{
     let battleHistories
     if(test==false){
         history = {"total wins":0, "total losses": 0, "total draws":0}
-        battleHistories = []
+        battleHistories = {}
         players.push({name, battleHistories, history})
         savePlayerLibrary()
         return {name, battleHistories, history}
@@ -45,28 +47,65 @@ const player = (name)=>{
     }
 }
 
-const battleHistory=(player1, player2)=>{
-    if(!player1[player2]){
+const getBattleHistory=(player1, player2)=>{
+    let currentHistory
+    if(player2.name in player1.battleHistories){
         console.log("nope")
-        const blankSlate = {"wins":0, "draws":0, "losses":0} 
-        player1.battleHistories[player2] = blankSlate
-        player2.battleHistories[player1] = blankSlate
+        return player1.battleHistories[player2.name]
     }
     else{
         console.log("yep")
-        console.log(player1[player2])
-        console.log(player2[player1])
+        let blankSlate = { [player1.name]: 0, [player2.name]:0, draws:0}
+        player1.battleHistories[player2.name] = blankSlate
+        player2.battleHistories[player1.name] = blankSlate
+        return player1.battleHistories[player2.name]
     }
 }
 
+const game = (player1, player2)=>{
+    let gameArray = [" "," "," "," "," "," "," "," "," "]
+    let whoseTurn =player1
+    getBattleHistory(player1, player2)
+    const changeTurn =()=>{
+        if(whoseTurn==player1){
+            whoseTurn=player2
+            userOneName.style.color = miamiBlue
+            userTwoName.style.color = miamiYellow
+        }
+        else{
+            whoseTurn=player1
+            userOneName.style.color = miamiYellow
+            userTwoName.style.color = miamiPink
+        }
+        return whoseTurn
+    }
+
+    let p1Score = 0
+    let p2Score = 0
+    const winner = (winner, loser)=>{
+        if(player ==player1){
+            p1Score+=1
+            userOneScore.textContent = p1Score
+        }else if(winner ==player2){
+            p2Score +=1
+            userTwoScore.textContent = p2Score
+        }
+        winner.battleHistories[loser.name][winner.name] +=1
+        winner.history["total wins"] +=1
+        loser.history["total losses"] +=1
+    }
+    
+
+     return {gameArray, changeTurn, winner}
+}
 
 
 
 const nick = player("Nick")
 const ceci = player("Ceci")
-const nickyboy = player("nicky")
+const camote = player("Camote")
 
-
+const newgame = game(nick,ceci)
 
 
 
