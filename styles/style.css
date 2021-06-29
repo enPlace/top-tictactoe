@@ -55,6 +55,7 @@ button:hover{
     align-items: center;
     height: 200px;
     font-size: 30px;
+    width: 100px;
 }
 #user-one-info{
     color: #0bd3d3

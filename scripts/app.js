@@ -55,15 +55,17 @@ const getBattleHistory=(player1, player2)=>{
     }
     else{
         console.log("yep")
-        let blankSlate = { [player1.name]: 0, [player2.name]:0, draws:0}
-        player1.battleHistories[player2.name] = blankSlate
-        player2.battleHistories[player1.name] = blankSlate
+        let blankSlate = 
+        player1.battleHistories[player2.name] = { wins: 0, losses:0, draws:0}
+        player2.battleHistories[player1.name] = { wins: 0, losses:0, draws:0}
         return player1.battleHistories[player2.name]
     }
 }
 
 const game = (player1, player2)=>{
     let gameArray = [" "," "," "," "," "," "," "," "," "]
+    userOneName.textContent = player1.name
+    userTwoName.textContent = player2.name
     let whoseTurn =player1
     getBattleHistory(player1, player2)
     const changeTurn =()=>{
@@ -83,17 +85,19 @@ const game = (player1, player2)=>{
     let p1Score = 0
     let p2Score = 0
     const winner = (winner, loser)=>{
-        if(player ==player1){
+        if( winner==player1){
             p1Score+=1
             userOneScore.textContent = p1Score
         }else if(winner ==player2){
             p2Score +=1
             userTwoScore.textContent = p2Score
         }
-        winner.battleHistories[loser.name][winner.name] +=1
+        winner.battleHistories[loser.name].wins +=1
+        loser.battleHistories[winner.name].losses +=1
         winner.history["total wins"] +=1
         loser.history["total losses"] +=1
-    }
+        
+    }   
     
 
      return {gameArray, changeTurn, winner}
