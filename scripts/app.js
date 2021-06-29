@@ -6,6 +6,7 @@ const userOneScore = document.getElementById("user-one-score")
 const userTwoInfo = document.getElementById("user-two-info")
 const userTwoName = document.getElementById("user-two-name")
 const userTwoScore = document.getElementById("user-two-score")
+const rows = [document.querySelectorAll("[data-row='0']"), document.querySelectorAll("[data-row='1']"), document.querySelectorAll("[data-row='2']")]
 
 const miamiBlue = "#0bd3d3"
 const miamiPink = "#fa46dc"
@@ -50,20 +51,48 @@ const getBattleHistory=(player1, player2)=>{
 }
 
 const game = (player1, player2)=>{
+    getBattleHistory(player1, player2)
+    userOneName.textContent = player1.name
+    userTwoName.textContent = player2.name
+
     let gameArray = [
         ["","",""],
         ["","",""],
         ["","",""]]
     const updateBoard = (row, col, text)=>{
         gameArray[row][col] = text
-        gameArray.forEach(row=>console.log(row))
         return gameArray
     }
-    getBattleHistory(player1, player2)
-    userOneName.textContent = player1.name
-    userTwoName.textContent = player2.name
+
+    const checkBoard=()=>{
+        const rows = [gameArray[0], gameArray[1], gameArray[2]]
+        const columns = [
+            [[gameArray[0][0]],[gameArray[1][0]],[gameArray[2][0]]],
+            [[gameArray[0][1]],[gameArray[1][1]],[gameArray[2][1]]],
+            [[gameArray[0][2]],[gameArray[1][2]],[gameArray[2][2]]],
+        ]
+        const middle = gameArray[1][1]
+        const diags = [
+            [gameArray[0][0], middle, gameArray[2][2]],
+            [gameArray[0][2], middle, gameArray[2][0]]
+        ]
+        let checkrows = rows.some(row=>{
+            return row[0]&&row[1]&&row[2]&&row[0]==row[1]&&row[1]==row[2]
+        })
+        let checkcols = columns.some(col=>{
+            return col[0][0]&&col[1][0]&&col[2][0]&&col[0][0]==col[1][0]&&col[1][0]==col[2][0]
+        })
+        let checkdiags = diags.some(diag=>{
+            return diag[0][0]&&diag[1][0]&&diag[2][0]&&diag[0][0]==diag[1][0]&&diag[1][0]==diag[2][0]
+        })
+
+        if(checkrows||checkcols||checkdiags) return true
+        
+        }
+
+
     
-    let turn =true
+    let turn =false
     const changeTurn =()=>{
         if(turn){
             console.log("yep")
@@ -78,6 +107,7 @@ const game = (player1, player2)=>{
         }
         return turn
     }
+    changeTurn()
     function whoseTurn(){
         return turn
     }
@@ -112,7 +142,7 @@ const game = (player1, player2)=>{
     const end=()=>{return p1Score>p2Score?`${player1.name} wins!`:`${player2.name} wins!`}
 
     return {gameArray, updateBoard, changeTurn, winner, 
-        draw, end, whoseTurn}
+            draw, end, whoseTurn, checkBoard}
 }
 
 cells.forEach(cell=>{
@@ -124,6 +154,9 @@ cells.forEach(cell=>{
                 cell.style.color = miamiBlue
                 currentGame.updateBoard(e.target.dataset.row, e.target.dataset.column, "X")
                 e.target.dataset.status = "active"
+                if(currentGame.checkBoard()==true){
+                    console.log("player1 wins!")
+                }
                 currentGame.changeTurn()
 
 
@@ -132,6 +165,9 @@ cells.forEach(cell=>{
                 cell.style.color = miamiPink
                 currentGame.updateBoard(e.target.dataset.row, e.target.dataset.column, "O")
                 e.target.dataset.status = "active"
+                if(currentGame.checkBoard()==true){
+                    console.log("player2 wins!")
+                }
                 currentGame.changeTurn()
             }
         }
@@ -143,38 +179,3 @@ let p1 = players["Nick"]
 let p2 = players["Ceci"]
 
 currentGame = game(p1, p2)
-
-/* const nick = player("Nick")
-const ceci = player("Ceci")
-const camote = player("Camote")
-
- */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//game object
-/* 
-1. takes two players as an argument
-2. sets up the record against those two players, or adds to their record if it already exists. 
-3. controls which player is active, which player has a turn 
-4. stores a new game array that keeps track of where xes and oes are
-5. 
-*/
