@@ -27,7 +27,6 @@ if(localStorage.getItem("players")){
 
 const player = (name)=>{
     //player factory function
-    //const test = players.some(player=>{if(player.name==name){return player.name==name}})
     if(name in players){
         return("Name taken! Try something else")        
     }else{
@@ -129,6 +128,15 @@ const match = (player1, player2)=>{
         }else if(winner ==player2){
             p2Score +=1
         }
+        if(firstturn){
+            firstturn = false
+            turn = true
+            changeTurn()
+        }else if(!firstturn){
+            firstturn = true
+            turn = false
+            changeTurn()
+        }
         winner.battleHistories[loser.name].wins +=1
         loser.battleHistories[winner.name].losses +=1
         winner.history["total wins"] +=1
@@ -164,9 +172,7 @@ cells.forEach(cell=>{
                     freezeCells()
                     currentGame.winner(p1,p2)
                 }
-                currentGame.changeTurn()
-
-
+                else{currentGame.changeTurn()}
             }else{
                 cell.textContent = "O"
                 cell.style.color = miamiPink
@@ -177,17 +183,19 @@ cells.forEach(cell=>{
                     freezeCells()
                     currentGame.winner(p2,p1)
                 }
-                currentGame.changeTurn()
+                else{currentGame.changeTurn()}
             }
         }
     })
 })
+
 function clearCells (){
     cells.forEach(cell=>{
         cell.textContent = ""
         cell.dataset.status = ""
     })
 }
+
 function freezeCells(){
     cells.forEach(cell=>{
         cell.dataset.status = "active"
@@ -204,3 +212,4 @@ let p1 = players["Nick"]
 let p2 = players["Ceci"]
 
 currentGame = match(p1, p2)
+
