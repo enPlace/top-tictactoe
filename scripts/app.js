@@ -6,6 +6,7 @@ const userOneScore = document.getElementById("user-one-score")
 const userTwoInfo = document.getElementById("user-two-info")
 const userTwoName = document.getElementById("user-two-name")
 const userTwoScore = document.getElementById("user-two-score")
+const playAgain = document.getElementById("play-again-button")
 const rows = [document.querySelectorAll("[data-row='0']"), document.querySelectorAll("[data-row='1']"), document.querySelectorAll("[data-row='2']")]
 
 const miamiBlue = "#0bd3d3"
@@ -50,7 +51,7 @@ const getBattleHistory=(player1, player2)=>{
     }
 }
 
-const game = (player1, player2)=>{
+const match = (player1, player2)=>{
     getBattleHistory(player1, player2)
     userOneName.textContent = player1.name
     userTwoName.textContent = player2.name
@@ -62,6 +63,12 @@ const game = (player1, player2)=>{
     const updateBoard = (row, col, text)=>{
         gameArray[row][col] = text
         return gameArray
+    }
+    function clearBoard(){
+        gameArray = [
+            ["","",""],
+            ["","",""],
+            ["","",""]]
     }
 
     const checkBoard=()=>{
@@ -85,13 +92,11 @@ const game = (player1, player2)=>{
         let checkdiags = diags.some(diag=>{
             return diag[0][0]&&diag[1][0]&&diag[2][0]&&diag[0][0]==diag[1][0]&&diag[1][0]==diag[2][0]
         })
-
         if(checkrows||checkcols||checkdiags) return true
-        
         }
 
 
-    
+    let firstturn = true
     let turn =false
     const changeTurn =()=>{
         if(turn){
@@ -139,10 +144,10 @@ const game = (player1, player2)=>{
         p2Score+=.5
         updateScores()
     }
-    const end=()=>{return p1Score>p2Score?`${player1.name} wins!`:`${player2.name} wins!`}
+    const end=()=>{return p1Score>p2Score?`${player1.name} wins the match!`:`${player2.name} wins the match!`}
 
     return {gameArray, updateBoard, changeTurn, winner, 
-            draw, end, whoseTurn, checkBoard}
+            draw, end, whoseTurn, checkBoard, clearBoard}
 }
 
 cells.forEach(cell=>{
@@ -156,6 +161,8 @@ cells.forEach(cell=>{
                 e.target.dataset.status = "active"
                 if(currentGame.checkBoard()==true){
                     console.log("player1 wins!")
+                    freezeCells()
+                    currentGame.winner(p1,p2)
                 }
                 currentGame.changeTurn()
 
@@ -167,15 +174,33 @@ cells.forEach(cell=>{
                 e.target.dataset.status = "active"
                 if(currentGame.checkBoard()==true){
                     console.log("player2 wins!")
+                    freezeCells()
+                    currentGame.winner(p2,p1)
                 }
                 currentGame.changeTurn()
             }
         }
     })
 })
+function clearCells (){
+    cells.forEach(cell=>{
+        cell.textContent = ""
+        cell.dataset.status = ""
+    })
+}
+function freezeCells(){
+    cells.forEach(cell=>{
+        cell.dataset.status = "active"
+    })
+}
+
+playAgain.addEventListener("click", ()=>{
+    clearCells()
+    currentGame.clearBoard()
+})
 
 let currentGame
 let p1 = players["Nick"]
 let p2 = players["Ceci"]
 
-currentGame = game(p1, p2)
+currentGame = match(p1, p2)
