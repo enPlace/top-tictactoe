@@ -10,9 +10,18 @@ const userTwoScore = document.getElementById("user-two-score")
 const miamiBlue = "#0bd3d3"
 const miamiPink = "#fa46dc"
 const miamiYellow ="rgb(253, 253, 127)"
-//gameboard function
 
-let players = []// for storing player info
+let players = {}// for storing player info
+const savePlayerLibrary=()=>{localStorage.setItem("players", JSON.stringify(players))}
+const getPlayerLibrary=()=>{return players = JSON.parse(localStorage.getItem("players"))}
+
+let newgame
+let p1
+let p2 
+
+if(localStorage.getItem("players")){
+    getPlayerLibrary()
+}
 
 cells.forEach(cell=>{
     if(cell.id%2 ==1){
@@ -25,49 +34,38 @@ cells.forEach(cell=>{
     }
 })
 
-function savePlayerLibrary(){
-    localStorage.setItem("players", JSON.stringify(players))
-}
-
 const player = (name)=>{
     //player factory function
-    let test = players.some(player=>{
-        if(player.name==name){return player.name==name}
-    })
-    let history
-    let battleHistories
-    if(test==false){
-        history = {"total wins":0, "total losses": 0, "total draws":0}
-        battleHistories = {}
-        players.push({name, battleHistories, history})
+    //const test = players.some(player=>{if(player.name==name){return player.name==name}})
+    if(name in players){
+        return("Name taken! Try something else")        
+    }else{
+        console.log("yep")
+        let history = {"total wins":0, "total losses": 0, "total draws":0}
+        let battleHistories = {}
+        players[name]={name, battleHistories, history}
         savePlayerLibrary()
         return {name, battleHistories, history}
-    }else{
-        return("Name taken! Try something else")
     }
 }
 
 const getBattleHistory=(player1, player2)=>{
-    let currentHistory
     if(player2.name in player1.battleHistories){
-        console.log("nope")
         return player1.battleHistories[player2.name]
-    }
-    else{
-        console.log("yep")
-        let blankSlate = 
+    }else{
         player1.battleHistories[player2.name] = { wins: 0, losses:0, draws:0}
         player2.battleHistories[player1.name] = { wins: 0, losses:0, draws:0}
+        savePlayerLibrary()
         return player1.battleHistories[player2.name]
     }
 }
 
 const game = (player1, player2)=>{
     let gameArray = [" "," "," "," "," "," "," "," "," "]
+    getBattleHistory(player1, player2)
     userOneName.textContent = player1.name
     userTwoName.textContent = player2.name
     let whoseTurn =player1
-    getBattleHistory(player1, player2)
     const changeTurn =()=>{
         if(whoseTurn==player1){
             whoseTurn=player2
@@ -84,32 +82,42 @@ const game = (player1, player2)=>{
 
     let p1Score = 0
     let p2Score = 0
+    const updateScores = () =>{
+        userOneScore.textContent = p1Score
+        userTwoScore.textContent = p2Score
+    }
     const winner = (winner, loser)=>{
         if( winner==player1){
             p1Score+=1
-            userOneScore.textContent = p1Score
         }else if(winner ==player2){
             p2Score +=1
-            userTwoScore.textContent = p2Score
         }
         winner.battleHistories[loser.name].wins +=1
         loser.battleHistories[winner.name].losses +=1
         winner.history["total wins"] +=1
         loser.history["total losses"] +=1
-        
-    }   
-    
-
-     return {gameArray, changeTurn, winner}
+        updateScores()
+    }
+    const draw =()=>{
+        player1.history["total draws"] +=1
+        player2.history["total draws"] +=1
+        player1.battleHistories[player2.name].draws +=1
+        player2.battleHistories[player1.name].draws +=1
+        p1Score +=.5
+        p2Score+=.5
+        updateScores()
+    }
+    const end=()=>{return p1Score>p2Score?`${player1.name} wins!`:`${player2.name} wins!`}
+    return {gameArray, changeTurn, winner, draw, end}
 }
 
 
-
-const nick = player("Nick")
+/* const nick = player("Nick")
 const ceci = player("Ceci")
 const camote = player("Camote")
 
-const newgame = game(nick,ceci)
+const newgame = game(nick,ceci) */
+
 
 
 
