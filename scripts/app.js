@@ -29,9 +29,8 @@ const player = (name)=>{
     if(name in players){
         return("Name taken! Try something else")        
     }else{
-        console.log("yep")
         let history = {"total wins":0, "total losses": 0, "total draws":0}
-        let battleHistories = {}
+        let battleHistories = {} //for history against specific opponents
         players[name]={name, battleHistories, history}
         savePlayerLibrary()
         return {name, battleHistories, history}
@@ -61,8 +60,8 @@ const match = (player1, player2)=>{
         ["","",""],
         ["","",""],
         ["","",""]]
-    const updateBoard = (row, col, text)=>{
-        gameArray[row][col] = text
+    const updateBoard = (row, col, XoValue)=>{
+        gameArray[row][col] = XoValue
         return gameArray
     }
     function clearBoard(){
@@ -73,6 +72,7 @@ const match = (player1, player2)=>{
     }
 
     const checkBoard=()=>{
+        //checks for a winning position
         const rows = [gameArray[0], gameArray[1], gameArray[2]]
         const columns = [
             [[gameArray[0][0]],[gameArray[1][0]],[gameArray[2][0]]],
@@ -166,14 +166,17 @@ const match = (player1, player2)=>{
 cells.forEach(cell=>{
     cell.addEventListener("click", (e)=>{
         //conrols the DOM gameboard and interacts with the gameArray in the match object
-        if(e.target.dataset.status == "active"){
-        }else{
+        //each cell in the DOM has a row and column data tag to make it easier to update the match gameboard
+        if(e.target.dataset.status == "active"){}//pass
+        else{
             if (currentGame.whoseTurn()){
+                //returns true, then its p1's turn. 
                 cell.textContent = "X"
                 cell.style.color = miamiBlue
                 currentGame.updateBoard(e.target.dataset.row, e.target.dataset.column, "X")
-                e.target.dataset.status = "active"
+                e.target.dataset.status = "active" 
                 if(currentGame.checkBoard()){
+                    //if true on p1's turn, p1 wins. 
                     console.log("player1 wins!")
                     freezeCells()
                     currentGame.winner(p1,p2)
