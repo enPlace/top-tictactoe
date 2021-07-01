@@ -191,6 +191,7 @@ cells.forEach(cell=>{
                 if(currentGame.checkBoard()==true){
                     //if true on p1's turn, p1 wins. 
                     userOneName.textContent = "Winner!"
+                    animate.winner(userOneName)
                     freezeCells()
                     currentGame.winner(p1,p2)
                 }else{currentGame.changeTurn()}
@@ -201,6 +202,7 @@ cells.forEach(cell=>{
                 e.target.dataset.status = "active"
                 if(currentGame.checkBoard()){
                     userTwoName.textContent = "Winner!"
+                    animate.winner(userTwoName)
                     freezeCells()
                     currentGame.winner(p2,p1)
                 }else{currentGame.changeTurn()}

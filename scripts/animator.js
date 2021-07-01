@@ -2,22 +2,7 @@
 const animator=(cells)=>{
     let i = 0
     let int 
-/*     const wipe =(cell, ms)=>{
-        setTimeout(()=>{cell.textContent = ""
-        cell.classList.add("wipe")
-        cell.dataset.status = ""
-        
-        
-        }, ms)
-        setTimeout(()=>{cell.classList.remove("wipe")},ms*2)
-    }
-    function start(){
-        let int = 100
-        for(let i=0; i<cells.length; i++){
-            wipe(cells[i], int)
-            int+=100
-        }
-    } */
+   
     wipecell = ()=>{
         if(i==0){
             cells[i].textContent = ""
@@ -69,28 +54,7 @@ const animator=(cells)=>{
             i++
         }
    
-        
-        /* if(i==0){
-            rows.forEach(row=>{
-                cell.textContent = ""
-                cell.classList.add("wipe")
-                cell.dataset.status = ""
-                i++
-            })
-        }else if(i>cells.length-1){
-            row2.forEach(cell=>{
-                cell.classList.remove("wipe")
-                i=0
-                clearInterval(int)
-            })
-        }else if(i==1){
-            row1.forEach(cell=>{
-                cell[i].textContent = ""
-                cell[i].classList.add("wipe")
-                cell[i].dataset.status = ""
-                i++
-            })
-        } */
+ 
     }
     const wipecols =()=>{
         const cols= [
@@ -124,26 +88,35 @@ const animator=(cells)=>{
             i++
         }
     }
-    const vertical = ()=>{
+    /* const vertical = ()=>{
         return int = setInterval(wiperows, 100)
-    }
+    } */
     const horizontal=()=>{
-        return int =setInterval(wipecols, 100)
-    }
-    function geti(){
-        return i
+        int =setInterval(wipecols, 100)
     }
     const start = ()=>{
         int = setInterval(wipecell, 100)
     }
+    let origColor
+    function wincolor(object){
+        if(object.style.color!="black"){
+            origColor = object.style.color
+            object.style.color ="black"
+        }else if(object.style.color="black"){
+            object.style.color = origColor
+        }
+    }
+    const onesec = ()=>{
+        clearInterval(int)
+    }
+    function winner(object){
+        int = setInterval(wincolor, 100, object)
+        setTimeout(onesec,800)
 
-    
+       
+    }
 
-    //
-    
-
-
-    return{geti, wipecell, wiperows,vertical, horizontal , start}
+    return{horizontal, start, winner, wincolor}
 }
 
 
@@ -154,10 +127,3 @@ function test(){
         cells[0].classList.add("wipe")
     }
 }
-
-
-//rows. 
-// set off each cell with an increasing delay.
-//function to wipe cell, then within the function a timeout to reset cell
-//for every cell, 
-
