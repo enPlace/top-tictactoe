@@ -90,29 +90,30 @@ button:hover{
     margin-left:100px;
     margin-right:100px;
     box-sizing: border-box;
-    background-image: linear-gradient(to bottom, #0bd3d3, #fa46dc);
+    background-image: linear-gradient(to right, #0bd3d3, #fa46dc);
     
 }
 .cell{
     width: 33.333%;
     height: 33.33%;
-    border: 2px solid black;
+    border: 2px solid #1d269b;
     color:#0bd3d3;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 50px;
-    background-color: rgba(0, 0, 0, 0.164);
-    transition: cubic-bezier(0.075, 0.82, 0.165, 1) .5s;
+    background-color: rgb(0, 0, 0);
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 2s;
     
 }
 .cell:hover{
-    /* background-color: 	#1d269b; */
-    background-color: rgba(0, 0, 0, 0.0);
+    cursor:cell;
+ background-color: rgba(0, 0, 0, 0.856);
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1); 
 }
 .cell.wipe{
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.521);
     transition: cubic-bezier(0.075, 0.82, 0.165, 1);
     
 }

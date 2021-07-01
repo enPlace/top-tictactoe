@@ -11,7 +11,7 @@ const rows = [document.querySelectorAll("[data-row='0']"), document.querySelecto
 
 const miamiBlue = "#0bd3d3"
 const miamiPink = "#fa46dc"
-const miamiYellow ="rgb(253, 253, 127)"
+const miamiYellow ="yellow"//"rgb(253, 253, 127)"
 
 let players = {}// for storing player info 
 
