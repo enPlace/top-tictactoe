@@ -175,7 +175,7 @@ const match = (player1, player2)=>{
             draw, end, whoseTurn, checkBoard, clearBoard, getscore}
 }
 /**********************************************************/
-const animate = animator()
+const animate = animator(cells)
 cells.forEach(cell=>{
     cell.addEventListener("click", (e)=>{
         //conrols the DOM gameboard and interacts with the gameArray in the match object
