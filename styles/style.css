@@ -103,3 +103,6 @@ button:hover{
 .cell:hover{
     background-color: 	#1d269b;
 }
+.cell.wipe{
+    background-color: #1d269b;
+}

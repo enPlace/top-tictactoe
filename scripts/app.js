@@ -173,7 +173,8 @@ const match = (player1, player2)=>{
     return {gameArray, updateBoard, changeTurn, winner, 
             draw, end, whoseTurn, checkBoard, clearBoard, getscore}
 }
-
+/**********************************************************/
+const animate = animator()
 cells.forEach(cell=>{
     cell.addEventListener("click", (e)=>{
         //conrols the DOM gameboard and interacts with the gameArray in the match object
@@ -207,24 +208,26 @@ cells.forEach(cell=>{
     })
 })
 
-function clearCells (){
-    cells.forEach(cell=>{
-        cell.textContent = ""
-        cell.dataset.status = ""
-    })
-}
+
 
 function freezeCells(){
     cells.forEach(cell=>{
         cell.dataset.status = "active"
     })
+    
 }
-
+const emptyCells= ()=>{
+    cells.forEach(cell=>{
+        cell.textContent = ""
+        cell.dataset.status = ""
+        
+    })
+}
 playAgain.addEventListener("click", ()=>{
     //resets DOM gameboard and match object gameArray
     userOneName.textContent = p1.name
     userTwoName.textContent = p2.name
-    clearCells()
+    animate.wipeboard()
     currentGame.clearBoard()
 })
 
@@ -240,8 +243,3 @@ currentGame = match(p1, p2)
 // maybe for that I can make another factory function to keep count from being global.
 //or just make the array, but still fact function to keep temp array and shift() the array
 
-const animate=()=>{
-    let tempcell = document.querySelectorAll(".cell")
-
-    const clear =()=>{}
-}
