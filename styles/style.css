@@ -75,34 +75,57 @@ button:hover{
     display: flex;
     flex-direction: row;
     align-items: center;
+    
 }
 .gameboard{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-between;
+    /* position: relative; */
     width: 426px;
     height: 426px;
-    /* border: 2px solid blue; */
+    border: 2px solid black; 
     margin: 20px;
     margin-left:100px;
     margin-right:100px;
     box-sizing: border-box;
+    background-image: linear-gradient(to bottom, #0bd3d3, #fa46dc);
     
 }
 .cell{
-    width: 33.3%;
-    height: 33.3%;
-    border: 2px solid #443A84;
+    width: 33.333%;
+    height: 33.33%;
+    border: 2px solid black;
+    color:#0bd3d3;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 50px;
-    color: yellow;
+    background-color: rgba(0, 0, 0, 0.164);
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) .5s;
+    
 }
 .cell:hover{
-    background-color: 	#1d269b;
+    /* background-color: 	#1d269b; */
+    background-color: rgba(0, 0, 0, 0.0);
 }
 .cell.wipe{
-    background-color: #1d269b;
+    background-color: transparent;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+    
+}
+
+.new-match{
+    display:none
+}
+.new-match.active{
+    width:100%;
+    height: 100%;
+    position:absolute;
+    background-color: black;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1)
+
+
 }

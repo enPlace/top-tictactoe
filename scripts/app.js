@@ -53,6 +53,7 @@ const match = (player1, player2)=>{
     getBattleHistory(player1, player2)
     userOneName.textContent = player1.name
     userTwoName.textContent = player2.name
+    
 
     /************************************************************/
     //board content
@@ -236,7 +237,7 @@ let p1 = players["Nick"]
 let p2 = players["Ceci"]
 
 currentGame = match(p1, p2)
-
+animate.wipeboard()
 
 //next, new match screen
 // some kind of animation that eliminates the border of the cells? 
