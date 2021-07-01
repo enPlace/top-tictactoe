@@ -84,17 +84,25 @@ const match = (player1, player2)=>{
             [gameArray[0][0], middle, gameArray[2][2]],
             [gameArray[0][2], middle, gameArray[2][0]]
         ]
-        let checkrows = rows.some(row=>{
+        const checkrows = rows.some(row=>{
             return row[0]&&row[1]&&row[2]&&row[0]==row[1]&&row[1]==row[2]
         })
-        let checkcols = columns.some(col=>{
+        const checkcols = columns.some(col=>{
             return col[0][0]&&col[1][0]&&col[2][0]&&col[0][0]==col[1][0]&&col[1][0]==col[2][0]
         })
-        let checkdiags = diags.some(diag=>{
+        const checkdiags = diags.some(diag=>{
             return diag[0][0]&&diag[1][0]&&diag[2][0]&&diag[0][0]==diag[1][0]&&diag[1][0]==diag[2][0]
         })
+        const checkDraws = rows.some(row=>{
+            return !row[0] || !row[1] ||!row[2]
+        })
         if(checkrows||checkcols||checkdiags) return true
+
+        if (!checkDraws) {
+            draw()
+            return 2}
         }
+       
         
     /************************************************************/
     //turn controls
@@ -175,13 +183,14 @@ cells.forEach(cell=>{
                 cell.style.color = miamiBlue
                 currentGame.updateBoard(e.target.dataset.row, e.target.dataset.column, "X")
                 e.target.dataset.status = "active" 
-                if(currentGame.checkBoard()){
+                if(currentGame.checkBoard()==true){
                     //if true on p1's turn, p1 wins. 
                     console.log("player1 wins!")
                     freezeCells()
                     currentGame.winner(p1,p2)
-                }
-                else{currentGame.changeTurn()}
+                }if (currentGame.checkBoard()==2){
+                    console.log("draw!")
+                }else{currentGame.changeTurn()}
             }else{
                 cell.textContent = "O"
                 cell.style.color = miamiPink
@@ -191,8 +200,9 @@ cells.forEach(cell=>{
                     console.log("player2 wins!")
                     freezeCells()
                     currentGame.winner(p2,p1)
-                }
-                else{currentGame.changeTurn()}
+                }else if (currentGame.checkBoard()==2){
+                    console.log("draw!")
+                }else{currentGame.changeTurn()}
             }
         }
     })
