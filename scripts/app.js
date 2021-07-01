@@ -228,7 +228,7 @@ playAgain.addEventListener("click", ()=>{
     //resets DOM gameboard and match object gameArray
     userOneName.textContent = p1.name
     userTwoName.textContent = p2.name
-    animate.wipeboard()
+    animate.start()
     currentGame.clearBoard()
 })
 
@@ -237,7 +237,7 @@ let p1 = players["Nick"]
 let p2 = players["Ceci"]
 
 currentGame = match(p1, p2)
-animate.wipeboard()
+animate.start()
 
 //next, new match screen
 // some kind of animation that eliminates the border of the cells? 

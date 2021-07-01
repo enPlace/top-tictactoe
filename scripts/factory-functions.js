@@ -23,7 +23,7 @@ const animator=()=>{
         
     }
 
-    const wipeboard = ()=>{
+    const start = ()=>{
         int = setInterval(wipecell, 80)
     }
 
@@ -31,5 +31,5 @@ const animator=()=>{
     
 
 
-    return{wipecell, wipeboard}
+    return{wipecell, start}
 }
