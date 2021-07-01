@@ -188,26 +188,20 @@ cells.forEach(cell=>{
                 e.target.dataset.status = "active" 
                 if(currentGame.checkBoard()==true){
                     //if true on p1's turn, p1 wins. 
-                    console.log("player1 wins!")
                     userOneName.textContent = "Winner!"
                     freezeCells()
                     currentGame.winner(p1,p2)
-                }/* else if (currentGame.checkBoard()==2){
-
-                } */else{currentGame.changeTurn()}
+                }else{currentGame.changeTurn()}
             }else{
                 cell.textContent = "O"
                 cell.style.color = miamiPink
                 currentGame.updateBoard(e.target.dataset.row, e.target.dataset.column, "O")
                 e.target.dataset.status = "active"
                 if(currentGame.checkBoard()){
-                    console.log("player2 wins!")
                     userTwoName.textContent = "Winner!"
                     freezeCells()
                     currentGame.winner(p2,p1)
-                }/* else if (currentGame.checkBoard()==2){
-                    console.log("draw!")
-                } */else{currentGame.changeTurn()}
+                }else{currentGame.changeTurn()}
             }
         }
     })
@@ -241,4 +235,13 @@ let p2 = players["Ceci"]
 currentGame = match(p1, p2)
 
 
-//next, modals
+//next, new match screen
+// some kind of animation that eliminates the border of the cells? 
+// maybe for that I can make another factory function to keep count from being global.
+//or just make the array, but still fact function to keep temp array and shift() the array
+
+const animate=()=>{
+    let tempcell = document.querySelectorAll(".cell")
+
+    const clear =()=>{}
+}
