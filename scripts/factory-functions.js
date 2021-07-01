@@ -105,7 +105,7 @@ const animator=(cells)=>{
                 cell.dataset.status = ""
             })
                 i++
-        }else if(i==rows.length-1){
+        }else if(i==rows.length){
             cols[i-1].forEach(cell=>{
                 cell.classList.remove("wipe")
             })

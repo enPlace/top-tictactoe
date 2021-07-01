@@ -228,7 +228,7 @@ playAgain.addEventListener("click", ()=>{
     //resets DOM gameboard and match object gameArray
     userOneName.textContent = p1.name
     userTwoName.textContent = p2.name
-    animate.start()
+    animate.horizontal()
     currentGame.clearBoard()
 })
 
