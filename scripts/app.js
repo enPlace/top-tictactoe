@@ -98,9 +98,7 @@ const match = (player1, player2)=>{
         })
         if(checkrows||checkcols||checkdiags) return true
 
-        if (!checkDraws) {
-            draw()
-            return 2}
+        if (!checkDraws) draw()
         }
        
         
@@ -163,12 +161,17 @@ const match = (player1, player2)=>{
         player2.battleHistories[player1.name].draws +=1
         p1Score +=.5
         p2Score+=.5
+        userTwoName.textContent = "Draw!"
+        userOneName.textContent = "Draw!"
         updateScores()
+    }
+    function getscore(){
+        return {p1Score, p2Score}
     }
     const end=()=>{return p1Score>p2Score?`${player1.name} wins the match!`:`${player2.name} wins the match!`}
 
     return {gameArray, updateBoard, changeTurn, winner, 
-            draw, end, whoseTurn, checkBoard, clearBoard}
+            draw, end, whoseTurn, checkBoard, clearBoard, getscore}
 }
 
 cells.forEach(cell=>{
@@ -186,11 +189,12 @@ cells.forEach(cell=>{
                 if(currentGame.checkBoard()==true){
                     //if true on p1's turn, p1 wins. 
                     console.log("player1 wins!")
+                    userOneName.textContent = "Winner!"
                     freezeCells()
                     currentGame.winner(p1,p2)
-                }if (currentGame.checkBoard()==2){
-                    console.log("draw!")
-                }else{currentGame.changeTurn()}
+                }/* else if (currentGame.checkBoard()==2){
+
+                } */else{currentGame.changeTurn()}
             }else{
                 cell.textContent = "O"
                 cell.style.color = miamiPink
@@ -198,11 +202,12 @@ cells.forEach(cell=>{
                 e.target.dataset.status = "active"
                 if(currentGame.checkBoard()){
                     console.log("player2 wins!")
+                    userTwoName.textContent = "Winner!"
                     freezeCells()
                     currentGame.winner(p2,p1)
-                }else if (currentGame.checkBoard()==2){
+                }/* else if (currentGame.checkBoard()==2){
                     console.log("draw!")
-                }else{currentGame.changeTurn()}
+                } */else{currentGame.changeTurn()}
             }
         }
     })
@@ -223,6 +228,8 @@ function freezeCells(){
 
 playAgain.addEventListener("click", ()=>{
     //resets DOM gameboard and match object gameArray
+    userOneName.textContent = p1.name
+    userTwoName.textContent = p2.name
     clearCells()
     currentGame.clearBoard()
 })
@@ -234,4 +241,4 @@ let p2 = players["Ceci"]
 currentGame = match(p1, p2)
 
 
-//next, make a draw if board is full
+//next, modals
