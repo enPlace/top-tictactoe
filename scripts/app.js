@@ -263,6 +263,7 @@ function populateDropdowns(){
 }
 const fightButton = document.getElementById("fight-button")
 const newMatch = document.getElementById("new-match")
+const cancelBttn = document.getElementById("cancel-button")
 fightButton.addEventListener("click",(e)=>{
     e.preventDefault()
     p1 = players[selectMenus[0].value]
@@ -276,6 +277,7 @@ newMatchBttn.addEventListener("click",()=>{
     newMatch.classList.add("active")
     selectMenus[0].selectedIndex = 0
     selectMenus[1].selectedIndex = 0
+    cancelBttn.classList.add("active")
 
    /*  userOneName.textContent = "User1"
     userOneName.style.color = miamiBlue
@@ -286,5 +288,9 @@ newMatchBttn.addEventListener("click",()=>{
     currentGame = false
     p1={name:"User1"}
     p2={name:"User2"}  */   
+})
+cancelBttn.addEventListener("click",(e)=>{
+    e.preventDefault()
+    newMatch.classList.remove("active")
 })
 populateDropdowns()

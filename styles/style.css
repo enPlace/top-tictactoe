@@ -148,6 +148,12 @@ button:hover{
     transition: cubic-bezier(0.165, 0.84, 0.44, 1) .5s; 
     background-color: rgba(0, 0, 0, 0.575);
 }
+#cancel-button{
+    display:none;
+}
+#cancel-button.active{
+    display: flex;
+}
 .dropdowns{
     display: flex;
     flex-direction: row;
