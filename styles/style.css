@@ -47,6 +47,7 @@ button:hover{
     color: #fa46dc
     
 }
+.cell.out{ color: #fa46dc}
 .in{
     color:#0bd3d3
 }
@@ -115,30 +116,20 @@ button:hover{
 .cell.wipe{
     background-color: rgba(0, 0, 0, 0.521);
     transition: cubic-bezier(0.075, 0.82, 0.165, 1);
-    
 }
 
 #new-match{
-    
     position:absolute;
-
     transform: translate(-50%, -50%) scale(0);
     transition: cubic-bezier(0.165, 0.84, 0.44, 1) .5s; 
     width:100%;
-    height: 100%;
-   /*  display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: scale(0);
-    opacity: 0;
-    transition: cubic-bezier(0.165, 0.84, 0.44, 1) .5s;  */
-   
+    height: 100%;   
 }
 #new-match form{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content:space-between;
+    justify-content:space-around;
 }
 #new-match.active{
     position:absolute;
@@ -146,7 +137,7 @@ button:hover{
     transform: scale(1);
      
     transition: cubic-bezier(0.165, 0.84, 0.44, 1) .5s; 
-    background-color: rgba(0, 0, 0, 0.575);
+    background-color: rgba(0, 0, 0, 0.74);
 }
 #cancel-button{
     display:none;

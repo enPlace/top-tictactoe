@@ -22,7 +22,15 @@ if(localStorage.getItem("players")){
     getPlayerLibrary()
 }
 
-
+cells.forEach(cell=>{
+    if(cell.id%2==0){
+        cell.textContent = "X"
+        cell.classList.add("in")
+    }else{
+        cell.textContent="O"
+        cell.classList.add("out")
+    }
+})
 
 const player = (name)=>{
     //player factory function
@@ -53,7 +61,9 @@ const match = (player1, player2)=>{
     //factory function-- controls the match, keeps track of scores, checks for winners
     getBattleHistory(player1, player2)
     userOneName.textContent = player1.name
+    userOneScore.textContent=0
     userTwoName.textContent = player2.name
+    userTwoScore.textContent=0
     
 
     /************************************************************/
@@ -182,7 +192,7 @@ let p1
 let p2 
 
 
-animate.start()
+
 cells.forEach(cell=>{
     cell.addEventListener("click", (e)=>{
         //conrols the DOM gameboard and interacts with the gameArray in the match object
@@ -278,16 +288,7 @@ newMatchBttn.addEventListener("click",()=>{
     selectMenus[0].selectedIndex = 0
     selectMenus[1].selectedIndex = 0
     cancelBttn.classList.add("active")
-
-   /*  userOneName.textContent = "User1"
-    userOneName.style.color = miamiBlue
-    userOneScore.textContent=0
-    userTwoName.textContent="User2"
-    userTwoName.style.color=miamiPink
-    userTwoScore.textContent=0       
-    currentGame = false
-    p1={name:"User1"}
-    p2={name:"User2"}  */   
+   
 })
 cancelBttn.addEventListener("click",(e)=>{
     e.preventDefault()
