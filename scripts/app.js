@@ -38,6 +38,7 @@ const player = (name)=>{
 }
 
 const getBattleHistory=(player1, player2)=>{
+
     if(player2.name in player1.battleHistories){
         return player1.battleHistories[player2.name]
     }else{
@@ -176,6 +177,12 @@ const match = (player1, player2)=>{
 }
 /**********************************************************/
 const animate = animator(cells)
+let currentGame
+let p1 = players["Nick"]
+let p2 = players["Ceci"]
+
+currentGame = match(p1, p2)
+animate.start()
 cells.forEach(cell=>{
     cell.addEventListener("click", (e)=>{
         //conrols the DOM gameboard and interacts with the gameArray in the match object
@@ -234,12 +241,7 @@ playAgain.addEventListener("click", ()=>{
     currentGame.clearBoard()
 })
 
-let currentGame
-let p1 = players["Nick"]
-let p2 = players["Ceci"]
 
-currentGame = match(p1, p2)
-animate.start()
 
 //next, new match screen
 // some kind of animation that eliminates the border of the cells? 
