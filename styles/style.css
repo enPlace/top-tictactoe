@@ -120,9 +120,18 @@ button:hover{
 
 #new-match{
     
-    display: flex;
+    position:absolute;
+
+    transform: translate(-50%, -50%) scale(0);
+    transition: cubic-bezier(0.165, 0.84, 0.44, 1) .5s; 
+    width:100%;
+    height: 100%;
+   /*  display: flex;
     align-items: center;
     justify-content: center;
+    transform: scale(0);
+    opacity: 0;
+    transition: cubic-bezier(0.165, 0.84, 0.44, 1) .5s;  */
    
 }
 #new-match form{
@@ -132,11 +141,12 @@ button:hover{
     justify-content:space-between;
 }
 #new-match.active{
-    width:100%;
-    height: 100%;
     position:absolute;
-    background-color: black;
-    transition: cubic-bezier(0.075, 0.82, 0.165, 1)
+    transform: translate(-50%, -50%);
+    transform: scale(1);
+     
+    transition: cubic-bezier(0.165, 0.84, 0.44, 1) .5s; 
+    background-color: rgba(0, 0, 0, 0.575);
 }
 .dropdowns{
     display: flex;
@@ -158,4 +168,5 @@ button:hover{
     color:white;
     background-color: black;
     font-size: 18px;
+    opacity: 2;
 }

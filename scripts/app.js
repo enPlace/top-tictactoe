@@ -271,4 +271,20 @@ fightButton.addEventListener("click",(e)=>{
     newMatch.classList.remove("active")
     animate.start()
 })
+const newMatchBttn = document.getElementById("new-match-button")
+newMatchBttn.addEventListener("click",()=>{
+    newMatch.classList.add("active")
+    selectMenus[0].selectedIndex = 0
+    selectMenus[1].selectedIndex = 0
+
+   /*  userOneName.textContent = "User1"
+    userOneName.style.color = miamiBlue
+    userOneScore.textContent=0
+    userTwoName.textContent="User2"
+    userTwoName.style.color=miamiPink
+    userTwoScore.textContent=0       
+    currentGame = false
+    p1={name:"User1"}
+    p2={name:"User2"}  */   
+})
 populateDropdowns()
