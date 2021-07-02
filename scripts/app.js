@@ -8,7 +8,7 @@ const userTwoName = document.getElementById("user-two-name")
 const userTwoScore = document.getElementById("user-two-score")
 const playAgain = document.getElementById("play-again-button")
 const rows = [document.querySelectorAll("[data-row='0']"), document.querySelectorAll("[data-row='1']"), document.querySelectorAll("[data-row='2']")]
-
+const selectMenus = document.querySelectorAll(".select")
 const miamiBlue = "#0bd3d3"
 const miamiPink = "#fa46dc"
 const miamiYellow ="yellow"//"rgb(253, 253, 127)"
@@ -178,10 +178,10 @@ const match = (player1, player2)=>{
 /**********************************************************/
 const animate = animator(cells)
 let currentGame
-let p1 = players["Nick"]
-let p2 = players["Ceci"]
+let p1 
+let p2 
 
-currentGame = match(p1, p2)
+
 animate.start()
 cells.forEach(cell=>{
     cell.addEventListener("click", (e)=>{
@@ -248,3 +248,27 @@ playAgain.addEventListener("click", ()=>{
 // maybe for that I can make another factory function to keep count from being global.
 //or just make the array, but still fact function to keep temp array and shift() the array
 
+function populateDropdowns(){
+    for(let i=0; i<selectMenus.length; i++){
+        
+        for(keys in players){
+            let newop = document.createElement("option")
+            newop.value = players[keys].name
+            newop.textContent = players[keys].name
+            //console.log(newop)
+            selectMenus[i].appendChild(newop)
+
+        }
+    }
+}
+const fightButton = document.getElementById("fight-button")
+const newMatch = document.getElementById("new-match")
+fightButton.addEventListener("click",(e)=>{
+    e.preventDefault()
+    p1 = players[selectMenus[0].value]
+    p2 = players[selectMenus[1].value]
+    currentGame= match(p1,p2)
+    newMatch.classList.remove("active")
+    animate.start()
+})
+populateDropdowns()

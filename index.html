@@ -49,40 +49,43 @@
             <div class="cell" data-column="2" data-row="2" id="8"></div>
 
 
-            <div id="new-match" class="new-match border-gradient border-gradient-vice ">
+            <div id="new-match" class="new-match active border-gradient border-gradient-vice ">
                 <form id="choose-players" autocomplete="off">
 
                     <div class="dropdowns">
                         <div class="dropdown">
                             <label for="choose-player1">Player 1:</label>
                             <br>
-                            <select name="choose-player1" id="sort-select" class="border-gradient border-gradient-vice">
-                                <option value="newest">newest</option>
+                            <select name="choose-player1" id="sort-select" class=" select border-gradient border-gradient-vice">
+                                <option hidden disabled selected value> -- select -- </option>
+                                <!-- <option value="newest">newest</option>
                                 <option value="oldest">oldest</option>
                                 <option value="a-z">a-z</option>
-                                <option value="z-a">z-a</option>
+                                <option value="z-a">z-a</option> -->
                             </select>
                         </div>
                         <br><br>
                         <div class="dropdown">
                             <label for="choose-player1">Player 2:</label>
                             <br>
-                            <select name="choose-player1" id="sort-select" class="border-gradient border-gradient-vice">
-                                <option value="newest">newest</option>
+                            <select name="choose-player1" id="sort-select" class="select border-gradient border-gradient-vice">
+                               <!--  <option value="newest">newest</option>
                                 <option value="oldest">oldest</option>
                                 <option value="a-z">a-z</option>
-                                <option value="z-a">z-a</option>
+                                <option value="z-a">z-a</option> -->
+                                <option hidden disabled selected value> -- select -- </option>
                             </select>
                         </div>
                     </div>
                     <br>
-                    <div class="add-button"><button type="submit" id="add-book-button" value="on/off">Fight!</button>
+                    <div class="fight" id = "fight">
+                        <button type="submit" id="fight-button" value="on/off">Fight!</button>
                     </div>
                 </form>
             </div>
         </div>
         <div class="user-info" id="user-two-info">
-            <div class="user-name" id="user-two-name">User1</div>
+            <div class="user-name" id="user-two-name">User2</div>
             <div class="user-score" id="user-two-score">0</div>
         </div>
 
