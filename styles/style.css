@@ -118,20 +118,20 @@ button:hover{
     transition: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-#new-match{
+.new-match{
     position:absolute;
     transform: translate(-50%, -50%) scale(0);
     transition: cubic-bezier(0.165, 0.84, 0.44, 1) .5s; 
     width:100%;
     height: 100%;   
 }
-#new-match form{
+.new-match form{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content:space-around;
 }
-#new-match.active{
+.new-match.active{
     position:absolute;
     transform: translate(-50%, -50%);
     transform: scale(1);
@@ -166,4 +166,22 @@ button:hover{
     background-color: black;
     font-size: 18px;
     opacity: 2;
+}
+
+#add-player{
+    box-sizing: border-box;
+    padding: 90px;
+}
+#add-player form label {
+    font-size: 20px;
+}
+#add-player form {
+    
+}
+
+input {
+    background-color: black;
+    color: white;
+    font-family: 'Audiowide', cursive;
+    font-size: 20px;
 }

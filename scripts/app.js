@@ -34,14 +34,24 @@ cells.forEach(cell=>{
 
 const player = (name)=>{
     //player factory function
+    try{
     if(name in players){
-        return("Name taken! Try something else")        
+        throw "Name taken! Try something else"
+        
     }else{
         let history = {"total wins":0, "total losses": 0, "total draws":0}
         let battleHistories = {} //for history against specific opponents
         players[name]={name, battleHistories, history}
         savePlayerLibrary()
         return {name, battleHistories, history}
+    }
+    }catch(err){
+        let newmsg= document.createElement("div")
+        newmsg.style.color = "red"
+        newmsg.style.textAlign="center"
+        newmsg.textContent = "Player name taken! Try something else"
+        addPlayerModal.appendChild(newmsg)
+
     }
 }
 
@@ -260,7 +270,6 @@ playAgain.addEventListener("click", ()=>{
 
 function populateDropdowns(){
     for(let i=0; i<selectMenus.length; i++){
-        
         for(keys in players){
             let newop = document.createElement("option")
             newop.value = players[keys].name
@@ -270,6 +279,13 @@ function populateDropdowns(){
 
         }
     }
+}
+
+function removeChildren(parent){
+    //removes all children of an element
+    while(parent.firstChild){
+        parent.removeChild(parent.firstChild)
+    };
 }
 const fightButton = document.getElementById("fight-button")
 const newMatch = document.getElementById("new-match")
@@ -293,5 +309,16 @@ newMatchBttn.addEventListener("click",()=>{
 cancelBttn.addEventListener("click",(e)=>{
     e.preventDefault()
     newMatch.classList.remove("active")
+})
+
+const addPlayerModal = document.getElementById("add-player")
+const addPlayerBttn = document.getElementById("add-player-bttn")
+addPlayerBttn.addEventListener("click", (e)=>{
+    e.preventDefault()
+    try{
+        player("nick")
+    }catch(err){
+        
+    }
 })
 populateDropdowns()
