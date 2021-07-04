@@ -114,7 +114,7 @@ const animator=(cells)=>{
     }
     function winner(object){
         int = setInterval(wincolor, 100, object)
-        setTimeout(onesec,800, object)
+        setTimeout(onesec,830, object)
 
        
     }
