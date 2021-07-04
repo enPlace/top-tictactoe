@@ -106,12 +106,13 @@ const animator=(cells)=>{
             object.style.color = origColor
         }
     }
-    const onesec = ()=>{
+    const onesec = (object)=>{
+        object.style.color = "origColor"
         clearInterval(int)
     }
     function winner(object){
         int = setInterval(wincolor, 100, object)
-        setTimeout(onesec,800)
+        setTimeout(onesec,800, object)
 
        
     }
