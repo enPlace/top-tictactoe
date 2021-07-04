@@ -302,12 +302,22 @@ newMatchBttn.addEventListener("click",()=>{
     selectMenus[0].selectedIndex = 0
     selectMenus[1].selectedIndex = 0
     cancelBttn.classList.add("active")
-   
 })
 cancelBttn.addEventListener("click",(e)=>{
     e.preventDefault()
     newMatch.classList.remove("active")
 })
+const addOptions = document.getElementsByClassName("add-option")
+function toggleAddPlayer(){
+    newMatch.classList.remove("active")
+    addPlayerModal.classList.add("active")
+}
+document.getElementById("newplayer").addEventListener("click",(e)=>{
+    e.preventDefault()
+    toggleAddPlayer()
+})
+
+
 
 const addPlayerModal = document.getElementById("add-player")
 const addPlayerBttn = document.getElementById("add-player-bttn")
@@ -315,8 +325,12 @@ const newPlayerTxt = document.getElementById("new-player")
 addPlayerBttn.addEventListener("click", (e)=>{
     e.preventDefault()
     addPlayer(newPlayerTxt.value)
-
-
+})
+const cancelAdd =document.getElementById("cancel-add")
+cancelAdd.addEventListener("click",(e)=>{
+    e.preventDefault()
+    addPlayerModal.classList.remove("active")
+    newMatch.classList.add("active")
 })
 newPlayerTxt.addEventListener("input", ()=>{
    errmsg.textContent=""
@@ -326,9 +340,17 @@ populateDropdowns()
 function addPlayer(string){
     try{
         player(string)
+        selectMenus.forEach(menu=>{
+            let newop = document.createElement("option")
+            newop.textContent = string
+            menu.appendChild(newop)
+            addPlayerModal.classList.remove("active")
+            newMatch.classList.add("active")
+            newPlayerTxt.value = ""
+        })
         errmsg.textContent = ""
     }catch(err){
         console.log(err)
-        errmsg.textContent="Player nam taken! Try something else."
+        errmsg.textContent="Player name taken! Try something else."
     }
 }

@@ -15,6 +15,7 @@ header h1{
     justify-content: space-around;
     width: 350px;
     margin: 20px;
+    color: white;
 }
 
 button{
@@ -116,6 +117,7 @@ button:hover{
 .cell.wipe{
     background-color: rgba(0, 0, 0, 0.521);
     transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: cub;
 }
 
 .new-match{
