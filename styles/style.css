@@ -185,3 +185,7 @@ input {
     font-family: 'Audiowide', cursive;
     font-size: 20px;
 }
+#errmsg{
+    color: red;
+    text-align: center;
+}

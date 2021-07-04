@@ -12,6 +12,7 @@ const selectMenus = document.querySelectorAll(".select")
 const miamiBlue = "#0bd3d3"
 const miamiPink = "#fa46dc"
 const miamiYellow ="yellow"//"rgb(253, 253, 127)"
+const errmsg = document.getElementById("errmsg")
 
 let players = {}// for storing player info 
 
@@ -34,9 +35,9 @@ cells.forEach(cell=>{
 
 const player = (name)=>{
     //player factory function
-    try{
+    
     if(name in players){
-        throw "Name taken! Try something else"
+        throw new Error("name taken")
         
     }else{
         let history = {"total wins":0, "total losses": 0, "total draws":0}
@@ -45,14 +46,11 @@ const player = (name)=>{
         savePlayerLibrary()
         return {name, battleHistories, history}
     }
-    }catch(err){
-        let newmsg= document.createElement("div")
-        newmsg.style.color = "red"
-        newmsg.style.textAlign="center"
-        newmsg.textContent = "Player name taken! Try something else"
-        addPlayerModal.appendChild(newmsg)
+    
+        
+        
 
-    }
+    
 }
 
 const getBattleHistory=(player1, player2)=>{
@@ -313,12 +311,24 @@ cancelBttn.addEventListener("click",(e)=>{
 
 const addPlayerModal = document.getElementById("add-player")
 const addPlayerBttn = document.getElementById("add-player-bttn")
+const newPlayerTxt = document.getElementById("new-player")
 addPlayerBttn.addEventListener("click", (e)=>{
     e.preventDefault()
-    try{
-        player("nick")
-    }catch(err){
-        
-    }
+    addPlayer(newPlayerTxt.value)
+
+
+})
+newPlayerTxt.addEventListener("input", ()=>{
+   errmsg.textContent=""
 })
 populateDropdowns()
+
+function addPlayer(string){
+    try{
+        player(string)
+        errmsg.textContent = ""
+    }catch(err){
+        console.log(err)
+        errmsg.textContent="Player nam taken! Try something else."
+    }
+}
