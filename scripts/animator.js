@@ -111,6 +111,7 @@ const animator=(cells)=>{
         object.style.color = "origColor"
         console.log(object)
         console.log(origColor)
+        console.log("again")
     }
     function winner(object){
         int = setInterval(wincolor, 100, object)
